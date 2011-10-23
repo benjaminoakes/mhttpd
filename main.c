@@ -19,7 +19,7 @@ void cat(char *path) {
 }
 
 int main(int argc, char *argv[]) {
-    char* index;
+    char *index;
 
     progname = argv[0];
 
