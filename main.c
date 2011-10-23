@@ -1,3 +1,6 @@
+/**
+ * @author Benjamin Oakes <hello@benjaminoakes.com>
+ */
 #include <stdio.h>
 
 char *progname;
