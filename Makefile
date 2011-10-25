@@ -1,8 +1,11 @@
 OUTFILE="mhttpd"
 
-all: configure
+all: mhttpd.o
 	./configure
-	gcc main.c -o ${OUTFILE}
+	gcc main.c mhttpd.o -o ${OUTFILE}
+
+mhttpd.o: mhttpd.c
+	gcc -c mhttpd.c
 
 test: all
 	./${OUTFILE}

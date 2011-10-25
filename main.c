@@ -3,6 +3,8 @@
  */
 #include <stdio.h>
 
+#include "mhttpd.h"
+
 char *progname;
 
 void cat(char *path) {
@@ -20,6 +22,7 @@ void cat(char *path) {
 
 int main(int argc, char *argv[]) {
     char *index;
+    int port = 3000;
 
     progname = argv[0];
 
@@ -33,6 +36,8 @@ int main(int argc, char *argv[]) {
     printf("[%s] started\n", progname);
 
     cat(index);
+
+    mhttp.listen(port);
 
     printf("[%s] finished\n", progname);
 
