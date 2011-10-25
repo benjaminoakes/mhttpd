@@ -1,9 +1,9 @@
 #include "mhttpd.h"
 
-static void listen(int port) {
+static void ns_listen(int port) {
     puts("got in");
 }
 
 ns const mhttp = {
-    listen
+    ns_listen
 };
