@@ -5,7 +5,7 @@
 
 #include "mhttpd.h"
 
-char *progname;
+const char *progname;
 
 void cat(char *path) {
     FILE *file;
@@ -26,20 +26,20 @@ int main(int argc, char *argv[]) {
 
     progname = argv[0];
 
+    printf("[%s] Starting...\n", progname);
+
     if (argc == 2) {
         index = argv[1];
     } else {
         index = "public/index.html";
     }
 
-    printf("[%s] starting...\n", progname);
-    printf("[%s] started\n", progname);
+    // cat(index);
 
-    cat(index);
-
+    printf("[%s] Listening on port %d\n", progname, port);
     mhttp.listen(port);
 
-    printf("[%s] finished\n", progname);
+    printf("[%s] Finished\n", progname);
 
     return 0;
 }

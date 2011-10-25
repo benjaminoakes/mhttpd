@@ -3,7 +3,7 @@
 #define MAX_Q_LEN 5
 
 static void ns_error(const char *msg) {
-    perror("Error opening socket");
+    perror(msg);
     exit(1);
 }
 
