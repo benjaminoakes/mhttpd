@@ -8,6 +8,6 @@
 #define MTTPD_H
 typedef struct {
     void (* const listen)(int);
-} ns;
-extern ns const mhttp;
+} mhttp_ns;
+extern mhttp_ns const mhttp;
 #endif

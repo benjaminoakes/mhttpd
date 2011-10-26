@@ -59,6 +59,6 @@ static void ns_listen(int port) {
     close(req_sock_fd);
 }
 
-ns const mhttp = {
+mhttp_ns const mhttp = {
     ns_listen
 };
