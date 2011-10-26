@@ -2,13 +2,29 @@
 
 #define MAX_Q_LEN 5
 
+/**
+ * Display error message and exit.
+ */
 static void ns_error(const char *msg) {
     perror(msg);
     exit(1);
 }
 
-/*
- * Begin listening on port
+void ns_cat(char *path) {
+    FILE *file;
+    char c;
+
+    file = fopen(path, "r");
+
+    while ((c = fgetc(file)) != EOF) {
+        putchar(c);
+    }
+
+    fclose(file);
+}
+
+/**
+ * Begin listening on port.
  * @see http://www.linuxhowtos.org/data/6/server.c, http://www.linuxhowtos.org/C_C++/socket.htm
  */
 static void ns_listen(int port) {

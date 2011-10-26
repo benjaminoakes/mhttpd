@@ -7,19 +7,6 @@
 
 const char *progname;
 
-void cat(char *path) {
-    FILE *file;
-    char c;
-
-    file = fopen(path, "r");
-
-    while ((c = fgetc(file)) != EOF) {
-        putchar(c);
-    }
-
-    fclose(file);
-}
-
 int main(int argc, char *argv[]) {
     char *index;
     int port = 3000;
@@ -33,8 +20,6 @@ int main(int argc, char *argv[]) {
     } else {
         index = "public/index.html";
     }
-
-    // cat(index);
 
     printf("[%s] Listening on port %d\n", progname, port);
     mhttp.listen(port);
