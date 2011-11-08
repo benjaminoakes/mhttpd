@@ -32,6 +32,8 @@ static void ns_listen(int port) {
     socklen_t res_len;
     char req_buffer[BUFSIZ];
     struct sockaddr_in req_addr, res_addr;
+    char* header = "HTTP/1.0 200 OK\nContent-Type: text/html\n\n"; // TODO Content-Length: 1234
+    char* body = "<!DOCTYPE html>\n<html><head><title>Hello</title></head><body><h1>Hello from mhttpd</h1><p>This is just a test</p></body></html>\n";
 
     req_sock_fd = socket(AF_INET, SOCK_STREAM, 0);
     check(req_sock_fd >= 0, "Error opening socket");
@@ -56,7 +58,10 @@ static void ns_listen(int port) {
     check(n >= 0, "Error reading from socket");
 
     printf("%s", req_buffer);
-    n = write(res_sock_fd, "I got your message\n", 19);
+    printf("%s", header);
+    n = write(res_sock_fd, header, strlen(header));
+    printf("%s", body);
+    n = write(res_sock_fd, body, strlen(body));
 
     check(n >= 0, "Error writing to socket");
 
