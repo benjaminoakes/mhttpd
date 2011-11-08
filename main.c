@@ -18,6 +18,18 @@ static void show_usage() {
     exit(-2);
 }
 
+/** Handle interrupt signal */
+static void sig_interrupt() {
+    printf("sig_interrupt\n");
+    // TODO clean up
+}
+
+/** Handle quit signal */
+static void sig_quit() {
+    printf("sig_quit\n");
+    exit(0);
+}
+
 /** Start server */
 static void start(int port) {
     printf("[%s] Starting...\n", progname);
@@ -28,10 +40,13 @@ static void start(int port) {
     printf("[%s] Finished\n", progname);
 }
 
-/** Entry point; process arguments and start. */
+/** Initialize, process arguments, and start. */
 int main(int argc, char* argv[]) {
     int port = DEFAULT_PORT;
     progname = argv[0];
+
+    signal(SIGINT, sig_interrupt);
+    signal(SIGQUIT, sig_quit);
 
     if (argc == 2) {
         port = atoi(argv[1]);
