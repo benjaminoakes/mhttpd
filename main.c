@@ -7,7 +7,7 @@
 #define DEFAULT_PORT 3000
 
 /** Name this program was called with */
-const char *progname;
+const char* progname;
 
 /** Print usage information */
 static void show_usage() {
@@ -29,7 +29,7 @@ static void start(int port) {
 }
 
 /** Entry point; process arguments and start. */
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     int port = DEFAULT_PORT;
     progname = argv[0];
 

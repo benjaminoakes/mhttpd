@@ -5,7 +5,7 @@
 /**
  * Print out a file, like Unix `cat`.
  */
-void ns_cat(char *path) {
+void ns_cat(char* path) {
     FILE *file;
     char c;
 
@@ -39,7 +39,7 @@ static void ns_listen(int port) {
     req_addr.sin_addr.s_addr = INADDR_ANY;
     req_addr.sin_port = htons(port);
 
-    check(bind(req_sock_fd, (struct sockaddr *) &req_addr, sizeof(req_addr)) >= 0, "Error binding");
+    check(bind(req_sock_fd, (struct sockaddr*) &req_addr, sizeof(req_addr)) >= 0, "Error binding");
 
     listen(req_sock_fd, MAX_Q_LEN);
     res_len = sizeof(res_addr);
