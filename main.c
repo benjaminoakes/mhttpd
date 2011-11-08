@@ -18,7 +18,10 @@ static void show_usage() {
     exit(-2);
 }
 
-/** Handle interrupt signal */
+/**
+ * Handle interrupt signal
+ * @see http://www.go4expert.com/forums/showthread.php?t=839
+ */
 static void sig_interrupt() {
     printf("sig_interrupt\n");
     // TODO clean up
