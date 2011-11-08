@@ -7,6 +7,8 @@
 #include <strings.h> /* for bzero */
 #include <sys/socket.h> /* for socket */
 
+#include "dbg.h"
+
 typedef struct {
     void (* const listen)(int);
 } mhttp_ns;
