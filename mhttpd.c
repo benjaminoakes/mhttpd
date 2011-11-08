@@ -25,11 +25,13 @@ void ns_cat(char* path) {
  * @see http://www.linuxhowtos.org/data/6/server.c
  */
 static void ns_listen(int port) {
-    int req_sock_fd, res_sock_fd;
+    int req_sock_fd,
+        res_sock_fd,
+        bind_result,
+        n;
     socklen_t res_len;
     char req_buffer[BUFSIZ];
     struct sockaddr_in req_addr, res_addr;
-    int n;
 
     req_sock_fd = socket(AF_INET, SOCK_STREAM, 0);
     check(req_sock_fd >= 0, "Error opening socket");
@@ -39,7 +41,8 @@ static void ns_listen(int port) {
     req_addr.sin_addr.s_addr = INADDR_ANY;
     req_addr.sin_port = htons(port);
 
-    check(bind(req_sock_fd, (struct sockaddr*) &req_addr, sizeof(req_addr)) >= 0, "Error binding");
+    bind_result = bind(req_sock_fd, (struct sockaddr*) &req_addr, sizeof(req_addr));
+    check(bind_result >= 0, "Error binding");
 
     listen(req_sock_fd, MAX_Q_LEN);
     res_len = sizeof(res_addr);
