@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "mhttpd.h"
 
-#define DEFAULT_PORT 3000
+#define DEFAULT_PORT 80
 
 /** Name this program was called with */
 const char* progname;

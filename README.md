@@ -10,12 +10,16 @@ Usage
 
     Usage: mhttpd [port]
 
+Example:
+
+	mhttpd 3000
+
 Right now, it just serves up "public/index.html" in response to any request.
 
 Building
 --------
 
-After you have the source (e.g. from [downloading a tarball via GitHub](https://github.com/benjaminoakes/mhttpd/tarball/master)), just do the standard steps:
+After you have the source (e.g., from [downloading a tarball via GitHub](https://github.com/benjaminoakes/mhttpd/tarball/master)), just do the standard steps:
 
 	./configure
 	make
