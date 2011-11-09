@@ -40,7 +40,7 @@ static void ns_listen(int port) {
     char* header = "HTTP/1.0 200 OK\nContent-Type: text/html\n\n"; // TODO Content-Length: 1234
 
     req_sock_fd = socket(AF_INET, SOCK_STREAM, 0);
-    check(req_sock_fd >= 0, "Error opening socket");
+    check(req_sock_fd != -1, "Error opening socket");
 
     bzero((char*) &req_addr, sizeof(req_addr));
     req_addr.sin_family = AF_INET;
@@ -48,7 +48,7 @@ static void ns_listen(int port) {
     req_addr.sin_port = htons(port);
 
     bind_result = bind(req_sock_fd, (struct sockaddr*) &req_addr, sizeof(req_addr));
-    check(bind_result >= 0, "Error binding");
+    check(bind_result == 0, "Error binding");
 
     listen(req_sock_fd, MAX_Q_LEN);
     res_len = sizeof(res_addr);
