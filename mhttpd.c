@@ -14,6 +14,7 @@ void ns_cat(char* path, int res_sock_fd) {
 
     // TODO buffer read and write into a char[BUFSIZ]
     while ((c = fgetc(file)) != EOF) {
+        putchar(c);
         n = write(res_sock_fd, &c, 1);
         check(n >= 0, "Error writing to socket");
     }
