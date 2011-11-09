@@ -1,8 +1,9 @@
 /**
  * @author Benjamin Oakes <hello@benjaminoakes.com>
  */
-#include <stdio.h>
 #include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
 #include "mhttpd.h"
 
 #define DEFAULT_PORT 3000
