@@ -1,6 +1,6 @@
 #include "mhttpd.h"
 
-#define MAX_Q_LEN 5
+#define MAX_Q_LEN 20
 
 /**
  * Get a file, like Unix `cat`.
@@ -51,21 +51,23 @@ static void ns_listen(int port) {
     bind_result = bind(req_sock_fd, (struct sockaddr*) &req_addr, sizeof(req_addr));
     check(bind_result == 0, "Error binding");
 
-    listen(req_sock_fd, MAX_Q_LEN);
-    res_len = sizeof(res_addr);
-    res_sock_fd = accept(req_sock_fd, (struct sockaddr *) &res_addr, &res_len);
-    check(res_sock_fd >= 0, "Error accepting");
+    for (;;) {
+        listen(req_sock_fd, MAX_Q_LEN);
+        res_len = sizeof(res_addr);
+        res_sock_fd = accept(req_sock_fd, (struct sockaddr *) &res_addr, &res_len);
+        check(res_sock_fd >= 0, "Error accepting");
 
-    bzero(req_buffer, BUFSIZ);
-    n = read(res_sock_fd, req_buffer, BUFSIZ - 1);
-    check(n >= 0, "Error reading from socket");
+        bzero(req_buffer, BUFSIZ);
+        n = read(res_sock_fd, req_buffer, BUFSIZ - 1);
+        check(n >= 0, "Error reading from socket");
 
-    printf("%s", req_buffer);
-    printf("%s", header);
-    n = write(res_sock_fd, header, strlen(header));
-    check(n >= 0, "Error writing to socket");
+        printf("%s", req_buffer);
+        printf("%s", header);
+        n = write(res_sock_fd, header, strlen(header));
+        check(n >= 0, "Error writing to socket");
 
-    ns_cat("public/index.html", res_sock_fd);
+        ns_cat("public/index.html", res_sock_fd);
+    }
 
 error:
     close(res_sock_fd);
