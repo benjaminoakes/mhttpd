@@ -1,11 +1,45 @@
 #include "mhttpd.h"
 
 #define MAX_Q_LEN 20
+#define MAX_VERB_LEN 7 // "OPTIONS"
+
+char ns_request_format[BUFSIZ];
+
+typedef struct {
+	char verb[MAX_VERB_LEN + 1];
+	char resource[BUFSIZ];
+} ns_request;
+
+/**
+ * Parse an HTTP request into a ns_request
+ *
+ * @example
+ * 		req = req_parse("GET /favicon.ico HTTP/1.1");
+ * 		printf("req.verb: %s\n", (req.verb)); // => req.verb: GET
+ * 		printf("req.resource: %s\n", (req.resource)); // => req.resource: /favicon.ico
+ *
+ * @example
+ * 		req = req_parse("OPTIONS / HTTP/1.1");
+ * 		printf("req.verb: %s\n", (req.verb)); // => req.verb: OPTIONS
+ * 		printf("req.resource: %s\n", (req.resource)); // => req.resource: /
+ */
+static ns_request ns_parse(char* raw_string) {
+	ns_request req;
+
+	// TODO
+	// check(sscanf(raw_string, ns_request_format, req.verb, req.resource) > 0, "Nothing matched");
+	sscanf(raw_string, ns_request_format, req.verb, req.resource);
+
+	return req;
+
+// error:
+// 	return NULL;
+}
 
 /**
  * Get a file, like Unix `cat`.
  */
-void ns_cat(char* path, int res_sock_fd) {
+static void ns_cat(char* path, int res_sock_fd) {
     char c;
     int n;
     FILE *file;
@@ -39,6 +73,9 @@ static void ns_listen(int port) {
     char req_buffer[BUFSIZ];
     struct sockaddr_in req_addr, res_addr;
     char* header = "HTTP/1.0 200 OK\nContent-Type: text/html\n\n"; // TODO Content-Length: 1234
+	ns_request req;
+
+	sprintf(ns_request_format, "%%%ds %%%ds", MAX_VERB_LEN, BUFSIZ);
 
     req_sock_fd = socket(AF_INET, SOCK_STREAM, 0);
     check(req_sock_fd != -1, "Error opening socket");
@@ -62,6 +99,10 @@ static void ns_listen(int port) {
         check(n >= 0, "Error reading from socket");
 
         printf("%s", req_buffer);
+		req = ns_parse(req_buffer);
+		printf("req.verb: %s\n", (req.verb));
+		printf("req.resource: %s\n", (req.resource));
+
         printf("%s", header);
         n = write(res_sock_fd, header, strlen(header));
         check(n >= 0, "Error writing to socket");
