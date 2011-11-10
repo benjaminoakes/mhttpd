@@ -12,11 +12,19 @@ const char* progname;
 
 /** Print usage information */
 static void show_usage() {
-    printf("Serve a directory over HTTP\n");
-    printf("\n");
-    printf("Usage: %s [port]\n", progname);
+    printf(
+        "Usage: %s [--help] [port]\n"
+        "\n"
+        "Serve a directory over HTTP\n"
+        "\n"
+        "  --help      Show this help text.\n"
+        "  port        Port number.  Default: %d (requires privileges)\n"
 
-    exit(-2);
+        , progname
+        , DEFAULT_PORT
+    );
+
+    exit(-1);
 }
 
 /**
@@ -47,11 +55,18 @@ static void start(int port) {
 
 /** Initialize, process arguments, and start. */
 int main(int argc, char* argv[]) {
+    int i;
     int port = DEFAULT_PORT;
     progname = argv[0];
 
     signal(SIGINT, signal_interrupt);
     signal(SIGQUIT, signal_quit);
+
+    for (i = 0; i < argc; i++) {
+        if (0 == strcmp(argv[i], "--help")) {
+            show_usage();
+        }
+    }
 
     if (argc == 2) {
         port = atoi(argv[1]);
