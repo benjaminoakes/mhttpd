@@ -8,11 +8,18 @@ My goal is to keep it simple and only handle GET requests.  I'm building it to p
 Usage
 -----
 
-    Usage: mhttpd [port]
-
-Example:
-
-	mhttpd 3000
+	<!-- BEGIN USAGE -->
+	Usage: ./mhttpd [--help] [port]
+	
+	Serve a directory over HTTP
+	
+	   --help      Show this help text.
+	   port        Port number.  Default: 80 (requires privileges)
+	
+	Example:
+	
+	   ./mhttpd 3000
+	<!-- END USAGE -->
 
 Right now, it just serves up "public/index.html" in response to any request.
 

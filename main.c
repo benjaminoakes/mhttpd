@@ -17,11 +17,16 @@ static void show_usage() {
         "\n"
         "Serve a directory over HTTP\n"
         "\n"
-        "  --help      Show this help text.\n"
-        "  port        Port number.  Default: %d (requires privileges)\n"
+        "   --help      Show this help text.\n"
+        "   port        Port number.  Default: %d (requires privileges)\n"
+        "\n"
+        "Example:\n"
+        "\n"
+        "   %s 3000\n"
 
         , progname
         , DEFAULT_PORT
+        , progname
     );
 
     exit(-1);
