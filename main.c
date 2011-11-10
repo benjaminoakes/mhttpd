@@ -33,6 +33,30 @@ static void show_usage() {
 }
 
 /**
+ * Process command line arguments
+ *
+ * @return port number
+ */
+static int process_args(int argc, char* argv[]) {
+    int i;
+    int port = DEFAULT_PORT;
+
+    for (i = 0; i < argc; i++) {
+        if (0 == strcmp(argv[i], "--help")) {
+            show_usage();
+        }
+    }
+
+    if (argc == 2) {
+        port = atoi(argv[1]);
+    } else if (argc > 2) {
+        show_usage();
+    }
+
+    return port;
+}
+
+/**
  * Handle quit signal
  * @see http://www.go4expert.com/forums/showthread.php?t=839
  */
@@ -60,25 +84,13 @@ static void start(int port) {
 
 /** Initialize, process arguments, and start. */
 int main(int argc, char* argv[]) {
-    int i;
-    int port = DEFAULT_PORT;
+    int port;
     progname = argv[0];
 
     signal(SIGINT, signal_interrupt);
     signal(SIGQUIT, signal_quit);
 
-    for (i = 0; i < argc; i++) {
-        if (0 == strcmp(argv[i], "--help")) {
-            show_usage();
-        }
-    }
-
-    if (argc == 2) {
-        port = atoi(argv[1]);
-    } else if (argc > 2) {
-        show_usage();
-    }
-
+    port = process_args(argc, argv);
     start(port);
 
     return 0;
