@@ -8,7 +8,7 @@ My goal is to keep it simple and only handle GET requests.  I'm building it to p
 Usage
 -----
 
-	<!-- BEGIN USAGE -->
+<!-- BEGIN USAGE -->
 	Usage: ./mhttpd [--help] [port]
 	
 	Serve a directory over HTTP
@@ -19,7 +19,7 @@ Usage
 	Example:
 	
 	   ./mhttpd 3000
-	<!-- END USAGE -->
+<!-- END USAGE -->
 
 Right now, it just serves up "public/index.html" in response to any request.
 
